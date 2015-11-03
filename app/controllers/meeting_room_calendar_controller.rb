@@ -48,7 +48,7 @@ class MeetingRoomCalendarController < ApplicationController
       return
     end
 
-    @projects = Project.find(@project_ids).select{ |p| p.visible? && User.current.allowed_to?(:view_issues, p) }.collect { |p| [p.name, p.id] }
+    @projects = Project.find(@project_ids).select{ |p| p.visible? && User.current.allowed_to?(:view_issues, p) }.sort_by { |p| p.name }.collect { |p| [p.name, p.id] }
     @project = Project.find_by_id(params[:project_id].to_i)
     if @project == nil
       @project = Project.find_by_id(@project_id.to_i)
@@ -95,7 +95,7 @@ class MeetingRoomCalendarController < ApplicationController
   end
 
   def create
-    @projects = Project.find(@project_ids).select{ |p| p.visible? }.collect { |p| [p.name, p.id] }
+    @projects = Project.find(@project_ids).select{ |p| p.visible? }.sort_by { |p| p.name }.collect { |p| [p.name, p.id] }
     @project = Project.find_by_id(params[:project_id].to_i)
     if @project == nil
       @project = Project.find_by_id(@project_id.to_i)
@@ -165,7 +165,7 @@ class MeetingRoomCalendarController < ApplicationController
   end
 
   def update
-    @projects = Project.find(@project_ids).select{ |p| p.visible? }.collect { |p| [p.name, p.id] }
+    @projects = Project.find(@project_ids).select{ |p| p.visible? }.sort_by { |p| p.name }.collect { |p| [p.name, p.id] }
     @project = Project.find_by_id(params[:project_id].to_i)
     if @project == nil
       @project = Project.find_by_id(@project_id.to_i)
@@ -214,7 +214,7 @@ class MeetingRoomCalendarController < ApplicationController
   end
 
   def delete
-    @projects = Project.find(@project_ids).select{ |p| p.visible? }.collect { |p| [p.name, p.id] }
+    @projects = Project.find(@project_ids).select{ |p| p.visible? }.sort_by { |p| p.name }.collect { |p| [p.name, p.id] }
     @project = Project.find_by_id(params[:project_id].to_i)
     if @project == nil
       @project = Project.find_by_id(@project_id.to_i)

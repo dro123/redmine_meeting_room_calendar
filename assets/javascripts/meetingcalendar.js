@@ -26,15 +26,7 @@
       getEventsJSON = function(offset) {
           var meeting_room = $('#meeting_rooms').val();
           var meeting_room_query = '';
-          if (meeting_room == 'all') {
-              if (all_meeting_rooms.length > 0) {
-                  meeting_room_query = '&cf_' + fieldIdRoom + '=';
-                  for (var i=0; i < all_meeting_rooms.length; i++) {
-                      meeting_room_query = meeting_room_query + encodeURIComponent(all_meeting_rooms[i])+'|';
-                  }
-                  meeting_room_query = meeting_room_query.substring(0, meeting_room_query.length - 1);
-              }
-          } else {
+          if (meeting_room != 'all') {
               meeting_room_query = '&cf_' + fieldIdRoom + '=' + encodeURIComponent(meeting_room);
           }
           var project_id = $('#project_id').val();
